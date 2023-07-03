@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
-import 'dart:ui';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:myapp/utils.dart';
 
 class Scene extends StatelessWidget {
+  const Scene({super.key});
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 500;
     double fem = MediaQuery.of(context).size.width / baseWidth;
     double ffem = fem * 0.97;
-    return Container(
+    return SizedBox(
       width: double.infinity,
-      child: Container(
+      child: SizedBox(
         // palette1AcU (14:17)
         width: double.infinity,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               // autogroupvc5aph2 (2y2PoSD5A2S25FRodNvC5A)
               width: 150*fem,
               height: 237*fem,
@@ -32,7 +31,7 @@ class Scene extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
+                        SizedBox(
                           // vectorQfE (14:18)
                           width: 50*fem,
                           height: 220*fem,
@@ -42,7 +41,7 @@ class Scene extends StatelessWidget {
                             height: 220*fem,
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           // vectorhPS (14:19)
                           width: 50*fem,
                           height: 220*fem,
@@ -52,7 +51,7 @@ class Scene extends StatelessWidget {
                             height: 220*fem,
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           // vectorNVa (14:20)
                           width: 50*fem,
                           height: 220*fem,
@@ -75,14 +74,14 @@ class Scene extends StatelessWidget {
                         fontSize: 6*ffem,
                         fontWeight: FontWeight.w400,
                         height: 1.2125*ffem/fem,
-                        color: Color(0xff000000),
+                        color: const Color(0xff000000),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               // vectorVCp (14:21)
               width: 50*fem,
               height: 220*fem,
@@ -92,7 +91,7 @@ class Scene extends StatelessWidget {
                 height: 220*fem,
               ),
             ),
-            Container(
+            SizedBox(
               // vectorwqW (14:22)
               width: 50*fem,
               height: 220*fem,
@@ -102,7 +101,7 @@ class Scene extends StatelessWidget {
                 height: 220*fem,
               ),
             ),
-            Container(
+            SizedBox(
               // vector3tY (14:23)
               width: 50*fem,
               height: 220*fem,
@@ -112,7 +111,7 @@ class Scene extends StatelessWidget {
                 height: 220*fem,
               ),
             ),
-            Container(
+            SizedBox(
               // vectorxkc (14:24)
               width: 50*fem,
               height: 220*fem,
@@ -122,7 +121,7 @@ class Scene extends StatelessWidget {
                 height: 220*fem,
               ),
             ),
-            Container(
+            SizedBox(
               // vectorThN (14:25)
               width: 50*fem,
               height: 220*fem,
@@ -132,7 +131,7 @@ class Scene extends StatelessWidget {
                 height: 220*fem,
               ),
             ),
-            Container(
+            SizedBox(
               // vectorLWG (14:26)
               width: 50*fem,
               height: 220*fem,
@@ -142,7 +141,7 @@ class Scene extends StatelessWidget {
                 height: 220*fem,
               ),
             ),
-            Container(
+            SizedBox(
               // vectorpwE (14:27)
               width: 50*fem,
               height: 220*fem,
