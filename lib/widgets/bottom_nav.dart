@@ -31,6 +31,7 @@ class _BNavigatorState extends State<BNavigator> {
               GButton(icon: Ionicons.person)
             ]),
       ),
+      backgroundColor: Colors.transparent,
     );
   }
 }
