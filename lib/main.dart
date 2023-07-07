@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 // Screens
-import 'package:myapp/pages/home.dart';
 import 'package:myapp/usuario-normal/favoritos.dart';
 import 'package:myapp/usuario-normal/busqueda.dart';
 import 'package:myapp/usuario-normal/mapa.dart';
 import 'package:myapp/usuario-normal/perfil.dart';
+import 'package:myapp/usuario-normal/home.dart';
 
 // Custom Widgets
 import 'package:myapp/widgets/appbar.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Widget> _pages = [
-    const HomePage(),
+    const HomePage2(),
     const FavoritosPage(),
     const BusquedaPage(),
     const MapaPage(),
