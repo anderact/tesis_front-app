@@ -34,6 +34,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // label - Ubicación
             Container(
               // group33332ZMv (63:327)
               margin: EdgeInsets.fromLTRB(31 * fem, 0 * fem, 0 * fem, 2 * fem),
@@ -121,17 +122,22 @@ class _BusquedaPageState extends State<BusquedaPage> {
                 ],
               ),
             ),
+            // TextField - Buscador
             Container(
               margin: const EdgeInsets.fromLTRB(26, 16, 26, 16),
               child: TextField(
                 controller: controller,
+                cursorColor: const Color(0xffc84a1c),
+                cursorOpacityAnimates: true,
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
+                    prefixIcon:
+                        const Icon(Icons.search, color: Color(0xffc84a1c)),
                     suffixIcon: controller.text.isEmpty
                         ? Container(width: 0)
                         : IconButton(
-                            icon: const Icon(Icons.close),
+                            icon: const Icon(Icons.close,
+                                color: Color(0xffc84a1c)),
                             onPressed: () => controller.clear(),
                           ),
                     hintText: 'Busca un producto o tienda',
@@ -142,6 +148,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
                     filled: true),
               ),
             ),
+            // label - Top Categorias
             Container(
               // group33304t6g (48:194)
               margin: EdgeInsets.fromLTRB(26 * fem, 0 * fem, 0 * fem, 8 * fem),
@@ -170,25 +177,10 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    // dividergoE (38:454)
-                    left: 2 * fem,
-                    top: 40 * fem,
-                    child: Align(
-                      child: SizedBox(
-                        width: 130 * fem,
-                        height: 1 * fem,
-                        child: Image.asset(
-                          'assets/usuario-normal/images/divider-MRW.png',
-                          width: 130 * fem,
-                          height: 1 * fem,
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
+            // item - Categoria
             Container(
               // group33320oN4 (52:294)
               margin: EdgeInsets.fromLTRB(38 * fem, 0 * fem, 0 * fem, 1 * fem),
@@ -255,175 +247,10 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       ],
                     ),
                   ),
-                  Container(
-                    // group33298Rnk (38:420)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 12 * fem, 0 * fem),
-                    width: 83 * fem,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40.5 * fem),
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          // rectangle5889L92 (38:421)
-                          left: 0 * fem,
-                          top: 0 * fem,
-                          child: Align(
-                            child: SizedBox(
-                              width: 83 * fem,
-                              height: 81 * fem,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(40.5 * fem),
-                                child: Image.asset(
-                                  'assets/usuario-normal/images/rectangle-5889-XSL.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          // verdurasqba (38:422)
-                          left: 20 * fem,
-                          top: 65 * fem,
-                          child: Center(
-                            child: Align(
-                              child: SizedBox(
-                                width: 44 * fem,
-                                height: 51 * fem,
-                                child: Text(
-                                  'Verduras',
-                                  textAlign: TextAlign.center,
-                                  style: SafeGoogleFont(
-                                    'Lato',
-                                    fontSize: 11 * ffem,
-                                    fontWeight: FontWeight.w400,
-                                    height: 4.5454545455 * ffem / fem,
-                                    color: const Color(0xff000000),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    // group33300w8p (52:295)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 13 * fem, 0 * fem),
-                    width: 83 * fem,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40.5 * fem),
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          // rectangle5889GB6 (52:296)
-                          left: 0 * fem,
-                          top: 0 * fem,
-                          child: Align(
-                            child: SizedBox(
-                              width: 83 * fem,
-                              height: 81 * fem,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(40.5 * fem),
-                                child: Image.asset(
-                                  'assets/usuario-normal/images/rectangle-5889-m48.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          // frutasB3A (52:297)
-                          left: 26.5 * fem,
-                          top: 65 * fem,
-                          child: Center(
-                            child: Align(
-                              child: SizedBox(
-                                width: 31 * fem,
-                                height: 51 * fem,
-                                child: Text(
-                                  'Frutas',
-                                  textAlign: TextAlign.center,
-                                  style: SafeGoogleFont(
-                                    'Lato',
-                                    fontSize: 11 * ffem,
-                                    fontWeight: FontWeight.w400,
-                                    height: 4.5454545455 * ffem / fem,
-                                    color: const Color(0xff000000),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    // group33299swa (38:423)
-                    width: 83 * fem,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40.5 * fem),
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          // rectangle58892Za (38:424)
-                          left: 0 * fem,
-                          top: 0 * fem,
-                          child: Align(
-                            child: SizedBox(
-                              width: 83 * fem,
-                              height: 81 * fem,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(40.5 * fem),
-                                child: Image.asset(
-                                  'assets/usuario-normal/images/rectangle-5889-ZNt.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          // frutasZJc (38:425)
-                          left: 26.5 * fem,
-                          top: 65 * fem,
-                          child: Center(
-                            child: Align(
-                              child: SizedBox(
-                                width: 31 * fem,
-                                height: 51 * fem,
-                                child: Text(
-                                  'Frutas',
-                                  textAlign: TextAlign.center,
-                                  style: SafeGoogleFont(
-                                    'Lato',
-                                    fontSize: 11 * ffem,
-                                    fontWeight: FontWeight.w400,
-                                    height: 4.5454545455 * ffem / fem,
-                                    color: const Color(0xff000000),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
+            // label - Catálogo Completo
             Container(
               // autogroupmpcyr2p (2y25eCy1qSzzUmMj64MPcY)
               margin: EdgeInsets.fromLTRB(26 * fem, 0 * fem, 0 * fem, 19 * fem),
@@ -452,25 +279,10 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    // dividerFqe (38:456)
-                    left: 0 * fem,
-                    top: 40 * fem,
-                    child: Align(
-                      child: SizedBox(
-                        width: 160 * fem,
-                        height: 1 * fem,
-                        child: Image.asset(
-                          'assets/usuario-normal/images/divider-dzL.png',
-                          width: 160 * fem,
-                          height: 1 * fem,
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
+            // item - catálogo
             Container(
               // group33300Ahi (38:439)
               margin:
@@ -501,88 +313,6 @@ class _BusquedaPageState extends State<BusquedaPage> {
                   Text(
                     // abarroteszAx (38:436)
                     'Abarrotes',
-                    style: SafeGoogleFont(
-                      'Lato',
-                      fontSize: 11 * ffem,
-                      fontWeight: FontWeight.w400,
-                      height: 4.5454545455 * ffem / fem,
-                      color: const Color(0xff000000),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // group33301Xwa (38:440)
-              margin:
-                  EdgeInsets.fromLTRB(61 * fem, 0 * fem, 30 * fem, 15 * fem),
-              padding:
-                  EdgeInsets.fromLTRB(0 * fem, 0 * fem, 109.04 * fem, 0 * fem),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30 * fem),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    // image6qxG (38:442)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 27.29 * fem, 0 * fem),
-                    width: 89.67 * fem,
-                    height: 58 * fem,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30 * fem),
-                      child: Image.asset(
-                        'assets/usuario-normal/images/image-6-nDi.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    // limpieza9xx (38:441)
-                    'Limpieza',
-                    style: SafeGoogleFont(
-                      'Lato',
-                      fontSize: 11 * ffem,
-                      fontWeight: FontWeight.w400,
-                      height: 4.5454545455 * ffem / fem,
-                      color: const Color(0xff000000),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              // group33302J5A (38:443)
-              margin:
-                  EdgeInsets.fromLTRB(61 * fem, 0 * fem, 30 * fem, 78 * fem),
-              padding:
-                  EdgeInsets.fromLTRB(0 * fem, 0 * fem, 113.04 * fem, 0 * fem),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30 * fem),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    // image6ba4 (38:445)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 27.29 * fem, 0 * fem),
-                    width: 89.67 * fem,
-                    height: 58 * fem,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30 * fem),
-                      child: Image.asset(
-                        'assets/usuario-normal/images/image-6-mQg.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    // bebidasVvL (38:444)
-                    'Bebidas',
                     style: SafeGoogleFont(
                       'Lato',
                       fontSize: 11 * ffem,
