@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/utils.dart';
 
-class Mapa extends StatelessWidget {
-  const Mapa({super.key});
+class MapaPage extends StatelessWidget {
+  const MapaPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widgets/appbar.dart';
-import 'package:myapp/widgets/bottom_nav.dart';
 import 'package:myapp/widgets/item.dart';
 
 class HomePage extends StatelessWidget {
@@ -23,11 +21,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: CustomAppBar(),
       body: Center(
         child: Item(),
       ),
-      bottomNavigationBar: BNavigator(),
     );
   }
 }
