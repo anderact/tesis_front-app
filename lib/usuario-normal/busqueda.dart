@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/services/firebase_services.dart';
 import 'package:myapp/utils.dart';
 
 class BusquedaPage extends StatefulWidget {
@@ -283,47 +284,67 @@ class _BusquedaPageState extends State<BusquedaPage> {
               ),
             ),
             // item - catálogo
-            Container(
-              // group33300Ahi (38:439)
-              margin:
-                  EdgeInsets.fromLTRB(61 * fem, 0 * fem, 30 * fem, 15 * fem),
-              padding:
-                  EdgeInsets.fromLTRB(0 * fem, 0 * fem, 103.04 * fem, 0 * fem),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30 * fem),
+
+            Expanded(
+              child: FutureBuilder(
+                future: getCategories(),
+                builder: ((context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          // group33300Ahi (38:439)
+                          margin: EdgeInsets.fromLTRB(
+                              61 * fem, 0 * fem, 30 * fem, 15 * fem),
+                          padding: EdgeInsets.fromLTRB(
+                              0 * fem, 0 * fem, 103.04 * fem, 0 * fem),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30 * fem),
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                // image6HGY (38:438)
+                                margin: EdgeInsets.fromLTRB(
+                                    0 * fem, 0 * fem, 27.29 * fem, 0 * fem),
+                                width: 89.67 * fem,
+                                height: 58 * fem,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(30 * fem),
+                                  child: Image.network(
+                                    snapshot.data?[index]['url'],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                // abarroteszAx (38:436)
+                                snapshot.data?[index]['categoria'],
+                                style: SafeGoogleFont(
+                                  'Lato',
+                                  fontSize: 11 * ffem,
+                                  fontWeight: FontWeight.w400,
+                                  height: 4.5454545455 * ffem / fem,
+                                  color: const Color(0xff000000),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
               ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    // image6HGY (38:438)
-                    margin: EdgeInsets.fromLTRB(
-                        0 * fem, 0 * fem, 27.29 * fem, 0 * fem),
-                    width: 89.67 * fem,
-                    height: 58 * fem,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30 * fem),
-                      child: Image.asset(
-                        'assets/usuario-normal/images/image-6.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    // abarroteszAx (38:436)
-                    'Abarrotes',
-                    style: SafeGoogleFont(
-                      'Lato',
-                      fontSize: 11 * ffem,
-                      fontWeight: FontWeight.w400,
-                      height: 4.5454545455 * ffem / fem,
-                      color: const Color(0xff000000),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            )
           ],
         ),
       ),

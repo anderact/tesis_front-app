@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "539795572555",
+    "firebase_url": "https://smartshopbackend-default-rtdb.firebaseio.com",
+    "project_id": "smartshopbackend",
+    "storage_bucket": "smartshopbackend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539795572555:android:d6ed04e6e5fff658544ace",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539795572555-f2t5r7eunibbvbvp641kup4uh4ar5nbi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCaVwGiNmXDqdhJU6wg_ZPk2HKX49XYdQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539795572555-06o84fbrvasn9c6gqjbvet5ahkc6hkrh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

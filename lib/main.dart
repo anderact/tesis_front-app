@@ -11,7 +11,17 @@ import 'package:myapp/usuario-normal/home.dart';
 import 'package:myapp/widgets/appbar.dart';
 //import 'package:myapp/widgets/bottom_nav.dart';
 
-void main() => runApp(const MyApp());
+//Importando Firebase
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
