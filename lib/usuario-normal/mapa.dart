@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:myapp/controllers/stores_controller.dart';
+import 'package:provider/provider.dart';
 
-const LatLng currentLocation = LatLng(-12.014245, -77.009723);
+final appKey = GlobalKey();
 
 class MapaPage extends StatefulWidget {
   const MapaPage({super.key});
@@ -18,30 +20,22 @@ class _MapaPageState extends State<MapaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(
-        initialCameraPosition: const CameraPosition(
-          target: currentLocation,
-          zoom: 14,
-        ),
-        onMapCreated: (controller) {
-          _mapController = controller;
-          addMarker('test', currentLocation);
-        },
-        markers: _markers.values.toSet(),
-      ),
-    );
-  }
+        key: appKey,
+        body: ChangeNotifierProvider<StoresController>(
+          create: (context) => StoresController(),
+          child: Builder(builder: (context) {
+            final local = context.watch<StoresController>();
 
-  addMarker(String id, LatLng location) {
-    var marker = Marker(
-        markerId: MarkerId(id),
-        position: location,
-        infoWindow: InfoWindow(
-          title: 'Title of place',
-          snippet: 'Some description of the place',
+            return GoogleMap(
+              initialCameraPosition: CameraPosition(
+                  target: LatLng(local.lat, local.long), zoom: 18),
+              zoomControlsEnabled: true,
+              mapType: MapType.normal,
+              myLocationEnabled: true,
+              onMapCreated: local.onMapCreated,
+              markers: local.markers,
+            );
+          }),
         ));
-
-    _markers[id] = marker;
-    setState(() {});
   }
 }

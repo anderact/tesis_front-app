@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_config/flutter_config.dart';
 
 // Screens
 import 'package:myapp/usuario-normal/favoritos.dart';
@@ -22,6 +23,7 @@ void main() async {
   // ignore: deprecated_member_use
   FlutterNativeSplash.removeAfter(initialization);
 
+  await FlutterConfig.loadEnvVariables();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
