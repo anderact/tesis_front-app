@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/utils.dart';
 import 'package:myapp/widgets/item.dart';
 
 class FavoritosPage extends StatefulWidget {
