@@ -36,7 +36,7 @@ class Item extends StatelessWidget {
                     ),
                     child: const Icon(
                       Icons.favorite,
-                      color: Colors.red,
+                      color: Color(0xfff78f8f),
                       size: 20,
                     ),
                   ),
@@ -50,7 +50,7 @@ class Item extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 11,
+            fontSize: 14 * MediaQuery.of(context).textScaleFactor,
           ),
         )
       ],

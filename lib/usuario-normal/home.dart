@@ -22,7 +22,9 @@ class _HomePage2State extends State<HomePage2> {
   Widget build(BuildContext context) {
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SizedBox(
           width: double.infinity,
@@ -31,7 +33,7 @@ class _HomePage2State extends State<HomePage2> {
             padding: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 19 * fem),
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Color(0xffffffff),
+              color: Colors.white,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,30 +44,50 @@ class _HomePage2State extends State<HomePage2> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          controller: controller,
-                          cursorColor: const Color(0xffc84a1c),
-                          cursorOpacityAnimates: true,
-                          textInputAction: TextInputAction.search,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.search,
-                                color: Color(0xffc84a1c)),
-                            suffixIcon: controller.text.isEmpty
-                                ? Container(width: 0)
-                                : IconButton(
-                                    icon: const Icon(Icons.close,
-                                        color: Color(0xffc84a1c)),
-                                    onPressed: () => controller.clear(),
-                                  ),
-                            hintText: 'Busca un producto o tienda',
-                            border: OutlineInputBorder(
+                        child: Builder(builder: (context) {
+                          double textScaleFactor =
+                              MediaQuery.of(context).textScaleFactor;
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xedfafafa),
                               borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide.none,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 3,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
                             ),
-                            fillColor: const Color(0xedfafafa),
-                            filled: true,
-                          ),
-                        ),
+                            child: TextField(
+                              controller: controller,
+                              cursorColor: const Color(0xffc84a1c),
+                              cursorOpacityAnimates: true,
+                              textInputAction: TextInputAction.search,
+                              style: TextStyle(fontSize: 16 * textScaleFactor),
+                              decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.search,
+                                    color: Color(0xffc84a1c)),
+                                suffixIcon: controller.text.isEmpty
+                                    ? Container(width: 0)
+                                    : IconButton(
+                                        icon: const Icon(Icons.close,
+                                            color: Color(0xffc84a1c)),
+                                        onPressed: () => controller.clear(),
+                                      ),
+                                hintText: 'Busca un producto',
+                                hintStyle:
+                                    TextStyle(fontSize: 16 * textScaleFactor),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide.none,
+                                ),
+                                fillColor: const Color(0xedfafafa),
+                                filled: true,
+                              ),
+                            ),
+                          );
+                        }),
                       ),
                       IconButton(
                         icon: const Icon(
@@ -77,18 +99,22 @@ class _HomePage2State extends State<HomePage2> {
                     ],
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 33.0, vertical: 25.0),
                   child: SizedBox(
                     width: double.infinity,
-                    child: Text(
-                      "Visto Recientemente",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
+                    child: Builder(builder: (context) {
+                      double textScaleFactor =
+                          MediaQuery.of(context).textScaleFactor;
+                      return Text(
+                        "Visto Recientemente",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18 * textScaleFactor,
+                        ),
+                      );
+                    }),
                   ),
                 ),
                 Padding(
@@ -159,18 +185,22 @@ class _HomePage2State extends State<HomePage2> {
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 33.0, vertical: 25.0),
                   child: SizedBox(
                     width: double.infinity,
-                    child: Text(
-                      "Sugerencias para ti",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
+                    child: Builder(builder: (context) {
+                      double textScaleFactor =
+                          MediaQuery.of(context).textScaleFactor;
+                      return Text(
+                        "Sugerencias para ti",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18 * textScaleFactor,
+                        ),
+                      );
+                    }),
                   ),
                 ),
                 Padding(
@@ -241,18 +271,22 @@ class _HomePage2State extends State<HomePage2> {
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 33.0, vertical: 25.0),
                   child: SizedBox(
                     width: double.infinity,
-                    child: Text(
-                      "Más buscado",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
-                    ),
+                    child: Builder(builder: (context) {
+                      double textScaleFactor =
+                          MediaQuery.of(context).textScaleFactor;
+                      return Text(
+                        "Más buscado",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18 * textScaleFactor,
+                        ),
+                      );
+                    }),
                   ),
                 ),
                 Padding(

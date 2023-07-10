@@ -20,6 +20,7 @@ class _MapaPageState extends State<MapaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         key: appKey,
         body: ChangeNotifierProvider<StoresController>(
           create: (context) => StoresController(),

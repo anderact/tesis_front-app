@@ -51,6 +51,14 @@ dependencies:
   # Splash
   flutter_native_splash: ^2.3.1
 
+  # Carousel
+  carousel_slider: ^4.2.1
+
+  # Page indicator
+  smooth_page_indicator: ^1.1.0
+  cached_network_image: ^3.2.3
+  shared_preferences: ^2.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -315,6 +323,7 @@ flutter:
     - assets/usuario-normal/images/group-33296-Skk.png
     - assets/usuario-normal/images/rectangle-5889-oCQ.png
     - assets/usuario-normal/images/battery-mDn.png
+    - assets/img/profile_default.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

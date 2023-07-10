@@ -232,68 +232,6 @@ class Producto extends StatelessWidget {
                             child: Column(
                               children: [
                                 Container(
-                                  // group33321Crg (52:304)
-                                  margin: EdgeInsets.fromLTRB(
-                                      24 * fem, 0 * fem, 23 * fem, 21 * fem),
-                                  width: double.infinity,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        // descripcinLxt (52:302)
-                                        margin: EdgeInsets.fromLTRB(
-                                            0 * fem, 0 * fem, 0 * fem, 8 * fem),
-                                        child: RichText(
-                                          text: TextSpan(
-                                            style: SafeGoogleFont(
-                                              'Lato',
-                                              fontSize: 20 * ffem,
-                                              fontWeight: FontWeight.w800,
-                                              height: 1.2 * ffem / fem,
-                                              color: const Color(0xff000000),
-                                            ),
-                                            children: [
-                                              TextSpan(
-                                                text: 'Descripción:',
-                                                style: SafeGoogleFont(
-                                                  'Lato',
-                                                  fontSize: 14 * ffem,
-                                                  fontWeight: FontWeight.w600,
-                                                  height: 1.2 * ffem / fem,
-                                                  color:
-                                                      const Color(0xff000000),
-                                                ),
-                                              ),
-                                              const TextSpan(
-                                                text: ' ',
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        // laespinacaspinaciaoleraceaesun (52:303)
-                                        margin: EdgeInsets.fromLTRB(
-                                            4 * fem, 0 * fem, 0 * fem, 0 * fem),
-                                        constraints: BoxConstraints(
-                                          maxWidth: 283 * fem,
-                                        ),
-                                        child: Text(
-                                          'La espinaca (Spinacia oleracea) es una planta anual, de la familia de las amarantáceas, subfamilia quenopodioideas, cultivada como verdura por sus hojas comestibles, grandes y de color verde muy oscuro. Su cultivo se realiza durante todo el año y se puede consumir fresca, cocida o frita.',
-                                          style: SafeGoogleFont(
-                                            'Lato',
-                                            fontSize: 11 * ffem,
-                                            fontWeight: FontWeight.w300,
-                                            height: 1.2 * ffem / fem,
-                                            color: const Color(0xff000000),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
                                   // autogroupf8luugY (2y28fTGLtwRGqQEBSsf8LU)
                                   margin: EdgeInsets.fromLTRB(
                                       0 * fem, 0 * fem, 0 * fem, 19 * fem),
