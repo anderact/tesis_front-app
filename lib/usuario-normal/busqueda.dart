@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-//import 'package:myapp/services/firebase_services.dart';
+import 'package:myapp/services/firebase_services.dart';
 import 'package:myapp/widgets/carouselSlider.dart';
 
 import '../widgets/item.dart';
@@ -88,30 +90,58 @@ class _BusquedaPageState extends State<BusquedaPage> {
                       ),
                     ],
                   ),
-                  child: TextField(
-                    controller: controller,
-                    cursorColor: const Color(0xffc84a1c),
-                    cursorOpacityAnimates: true,
-                    textInputAction: TextInputAction.search,
-                    style: TextStyle(fontSize: 16 * textScaleFactor),
-                    decoration: InputDecoration(
-                      prefixIcon:
-                          const Icon(Icons.search, color: Color(0xffc84a1c)),
-                      suffixIcon: controller.text.isEmpty
-                          ? Container(width: 0)
-                          : IconButton(
-                              icon: const Icon(Icons.close,
-                                  color: Color(0xffc84a1c)),
-                              onPressed: () => controller.clear(),
-                            ),
-                      hintText: 'Busca un producto',
-                      hintStyle: TextStyle(fontSize: 16 * textScaleFactor),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide.none),
-                      fillColor: const Color(0xedfafafa),
-                      filled: true,
-                    ),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: controller,
+                        cursorColor: const Color(0xffc84a1c),
+                        cursorOpacityAnimates: true,
+                        textInputAction: TextInputAction.search,
+                        style: TextStyle(fontSize: 16 * textScaleFactor),
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.search,
+                              color: Color(0xffc84a1c)),
+                          suffixIcon: controller.text.isEmpty
+                              ? Container(width: 0)
+                              : IconButton(
+                                  icon: const Icon(Icons.close,
+                                      color: Color(0xffc84a1c)),
+                                  onPressed: () => controller.clear(),
+                                ),
+                          hintText: 'Busca un producto',
+                          hintStyle: TextStyle(fontSize: 16 * textScaleFactor),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: BorderSide.none),
+                          fillColor: const Color(0xedfafafa),
+                          filled: true,
+                        ),
+                      ),
+                      // FutureBuilder<List>(
+                      //   builder: (BuildContext context,
+                      //       AsyncSnapshot<List> snapshot) {
+                      //     if (snapshot.connectionState ==
+                      //         ConnectionState.waiting) {
+                      //       return CircularProgressIndicator();
+                      //     }
+
+                      //     if (snapshot.hasError) {
+                      //       return Text('Error al cargar los productos');
+                      //     }
+
+                      //   },
+                      // )
+                      ElevatedButton(
+                        onPressed: () async {
+                          dynamic productData = await getProducts();
+                          String formattedJson =
+                              const JsonEncoder.withIndent('  ')
+                                  .convert(productData);
+                          print(formattedJson);
+                        },
+                        child: Text('Obtener productos'),
+                      ),
+                    ],
                   ),
                 ),
                 // label - Top Categorias

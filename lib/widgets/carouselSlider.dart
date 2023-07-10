@@ -87,7 +87,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               fit: BoxFit.cover,
               placeholder: (context, url) => AspectRatio(
                 aspectRatio: 1,
-                child: CircularProgressIndicator(),
+                child: Center(child: CircularProgressIndicator()),
               ),
               errorWidget: (context, url, error) => Icon(Icons.error),
               color: Colors.black.withOpacity(0.35),

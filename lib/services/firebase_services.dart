@@ -19,6 +19,24 @@ Future<List> getStores() async {
   return stores;
 }
 
+Future<List> getProducts() async {
+  List<Map<String, dynamic>> products = [];
+
+  CollectionReference collectionReference = db.collection("allProducts");
+
+  QuerySnapshot queryProducts = await collectionReference.get();
+
+  queryProducts.docs.forEach((product) {
+    Map<String, dynamic> productData = product.data() as Map<String, dynamic>;
+
+    products.add(productData);
+  });
+
+  print(products);
+
+  return products;
+}
+
 Future<List> getCategories() async {
   List categories = [
     {
