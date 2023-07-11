@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/widgets/item.dart';
 
+import '../services/firebase_services.dart';
+
 class FavoritosPage extends StatefulWidget {
   const FavoritosPage({super.key});
 
@@ -12,6 +14,7 @@ class _FavoritosPageState extends State<FavoritosPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   int _totalPages = 1;
+  List<Item> itemProducts = [];
 
   List<Item> favoriteItems = [
     const Item(
@@ -100,17 +103,37 @@ class _FavoritosPageState extends State<FavoritosPage> {
   void initState() {
     super.initState();
     _totalPages = (favoriteItems.length / 9).ceil();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    //toda la data
+    dynamic productData = await getProducts();
+    //productos
+    dynamic products = productData[0]['json_without'];
+
+    for (var product in products) {
+      dynamic productName = product['title'];
+      print(productName);
+      itemProducts.add(
+        Item(
+            imageUrl: product['img'],
+            title: product['marca'],
+            isFavorite: true),
+      );
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    // final int totalPages = (favoriteItems.length / 9).ceil();
+    final int _totalPages = (itemProducts.length / 9).ceil();
 
     final List<List<Item>> pages = [];
 
-    for (int i = 0; i < favoriteItems.length; i += 9) {
-      final List<Item> pageItems = favoriteItems.sublist(
-          i, i + 9 < favoriteItems.length ? i + 9 : favoriteItems.length);
+    for (int i = 0; i < itemProducts.length; i += 9) {
+      final List<Item> pageItems = itemProducts.sublist(
+          i, i + 9 < itemProducts.length ? i + 9 : itemProducts.length);
       pages.add(pageItems);
     }
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/usuario-normal/producto.dart';
+//import 'package:myapp/usuario-normal/producto.dart';
+import 'package:myapp/usuario-normal/resultado-de-bsqueda.dart';
 import 'package:myapp/widgets/item.dart';
+
+import '../services/firebase_services.dart';
 
 class HomePage2 extends StatefulWidget {
   const HomePage2({super.key});
@@ -10,16 +13,64 @@ class HomePage2 extends StatefulWidget {
 }
 
 class _HomePage2State extends State<HomePage2> {
+  List<dynamic> allProducts = [];
+  List<Item> itemProducts = [];
   final controller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     controller.addListener(() => setState(() {}));
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    //toda la data
+    dynamic productData = await getProducts();
+    //productos
+    dynamic products = productData[0]['json_without'];
+
+    for (var product in products) {
+      dynamic productName = product['title'];
+      print(productName);
+      allProducts.add(productName);
+      itemProducts.add(
+        Item(
+            imageUrl: product['img'],
+            title: product['marca'],
+            isFavorite: false),
+      );
+    }
+    setState(() {});
+  }
+
+  List<dynamic> getFilteredProducts() {
+    String searchText = controller.text.toLowerCase().trim();
+    if (searchText.isEmpty) {
+      return [];
+    }
+
+    return allProducts.where((product) {
+      String productTitle = product.toString().toLowerCase();
+      return productTitle.contains(searchText);
+    }).toList();
+  }
+
+  void _navigateToResultadoBusqueda(String productTitle) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultadoBusqueda(
+          titleProductFilter: productTitle,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> filteredProducts = getFilteredProducts();
+
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
 
@@ -70,21 +121,23 @@ class _HomePage2State extends State<HomePage2> {
                                     color: Color(0xffc84a1c)),
                                 suffixIcon: controller.text.isEmpty
                                     ? Container(width: 0)
-                                    : IconButton(
-                                        icon: const Icon(Icons.close,
-                                            color: Color(0xffc84a1c)),
-                                        onPressed: () => controller.clear(),
-                                      ),
+                                    : Builder(builder: (context) {
+                                        return IconButton(
+                                          icon: const Icon(Icons.close,
+                                              color: Color(0xffc84a1c)),
+                                          onPressed: () => controller.clear(),
+                                        );
+                                      }),
                                 hintText: 'Busca un producto',
                                 hintStyle:
                                     TextStyle(fontSize: 16 * textScaleFactor),
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide.none,
-                                ),
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide.none),
                                 fillColor: const Color(0xedfafafa),
                                 filled: true,
                               ),
+                              onChanged: (_) => setState(() {}),
                             ),
                           );
                         }),
@@ -99,6 +152,30 @@ class _HomePage2State extends State<HomePage2> {
                     ],
                   ),
                 ),
+                if (filteredProducts.isNotEmpty)
+                  Container(
+                    height: 300,
+                    child: ListView.builder(
+                      itemCount: filteredProducts.length > 3
+                          ? 3
+                          : filteredProducts.length,
+                      itemBuilder: (context, index) {
+                        String productTitle = filteredProducts[index];
+
+                        return GestureDetector(
+                          onTap: () {
+                            _navigateToResultadoBusqueda(productTitle);
+                          },
+                          child: ListTile(
+                            title: Text(productTitle),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                if (filteredProducts.isEmpty && controller.text.isNotEmpty)
+                  Text('No se encontraron resultados.'),
+                // label - visto recientemente
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 33.0, vertical: 25.0),
@@ -119,72 +196,21 @@ class _HomePage2State extends State<HomePage2> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 33.0),
-                  child: SizedBox(
-                    height: 135,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-8Yk.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-2i8.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-d7a.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                      ],
+                  child: Expanded(
+                    child: Container(
+                      height: 150,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.all(12),
+                        itemCount: itemProducts.length,
+                        itemBuilder: (context, index) {
+                          return itemProducts[index];
+                        },
+                      ),
                     ),
                   ),
                 ),
+                // label - sugerencias para ti
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 33.0, vertical: 25.0),
@@ -205,72 +231,21 @@ class _HomePage2State extends State<HomePage2> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 33.0),
-                  child: SizedBox(
-                    height: 135,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-m48.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-K3r.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-MkQ.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                      ],
+                  child: Expanded(
+                    child: Container(
+                      height: 150,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.all(12),
+                        itemCount: itemProducts.length,
+                        itemBuilder: (context, index) {
+                          return itemProducts[index];
+                        },
+                      ),
                     ),
                   ),
                 ),
+                // label - más buscado
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 33.0, vertical: 25.0),
@@ -291,69 +266,17 @@ class _HomePage2State extends State<HomePage2> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 33.0),
-                  child: SizedBox(
-                    height: 135,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-h6c.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-jEU.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Producto(),
-                                ),
-                              );
-                            },
-                            child: const Item(
-                              imageUrl:
-                                  'assets/usuario-normal/images/rectangle-5889-YiQ.png',
-                              title: 'Lentejas',
-                              isFavorite: false,
-                            ),
-                          ),
-                        ),
-                      ],
+                  child: Expanded(
+                    child: Container(
+                      height: 150,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        padding: const EdgeInsets.all(12),
+                        itemCount: itemProducts.length,
+                        itemBuilder: (context, index) {
+                          return itemProducts[index];
+                        },
+                      ),
                     ),
                   ),
                 ),

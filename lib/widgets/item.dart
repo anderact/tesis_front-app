@@ -21,7 +21,7 @@ class Item extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage(imageUrl),
+              image: NetworkImage(imageUrl),
               fit: BoxFit.cover,
             ),
           ),
@@ -44,13 +44,16 @@ class Item extends StatelessWidget {
               : null,
         ),
         const SizedBox(height: 8),
-        Text(
-          title,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14 * MediaQuery.of(context).textScaleFactor,
+        Container(
+          width: 85,
+          child: Text(
+            title,
+            maxLines: 3,
+            overflow: TextOverflow.clip,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 14 * MediaQuery.of(context).textScaleFactor,
+            ),
           ),
         )
       ],
