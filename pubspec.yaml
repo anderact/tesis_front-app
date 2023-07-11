@@ -58,6 +58,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   cached_network_image: ^3.2.3
   shared_preferences: ^2.2.0
+  firebase_auth: ^4.6.3
+  google_sign_in: ^6.1.4
 
 dev_dependencies:
   flutter_test:
@@ -92,6 +94,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/usuario-normal/images/google.png
     - assets/usuario-normal/images/store.png
     - assets/usuario-normal/images/leftarrow-4.png
     - assets/usuario-normal/images/logotake1-3.png

@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:myapp/pages/auth_page.dart';
 
-// Screens
-import 'package:myapp/usuario-normal/favoritos.dart';
-import 'package:myapp/usuario-normal/busqueda.dart';
-import 'package:myapp/usuario-normal/mapa.dart';
-import 'package:myapp/usuario-normal/perfil.dart';
-import 'package:myapp/usuario-normal/home.dart';
-
-// Custom Widgets
-import 'package:myapp/widgets/appbar.dart';
 //import 'package:myapp/widgets/bottom_nav.dart';
 
 //Importando Firebase
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
+const List<String> scopes = <String>[
+  'email',
+  'https://www.googleapis.com/auth/contacts.readonly',
+];
+
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  // Optional clientId
+  // clientId: 'your-client_id.apps.googleusercontent.com',
+  scopes: scopes,
+);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,51 +47,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Widget> _pages = [
-    const HomePage2(),
-    const FavoritosPage(),
-    const BusquedaPage(),
-    const MapaPage(),
-    const PerfilPage()
-  ];
+
   int currentIndex = 0;
   void onTap(int index) {
     setState(() {
       currentIndex = index;
     });
   }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SmartShop',
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: const CustomAppBar(),
-        body: _pages[currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          type: BottomNavigationBarType.fixed,
-          onTap: onTap,
-          currentIndex: currentIndex,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black26,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          selectedFontSize: 0,
-          unselectedFontSize: 0,
-          elevation: 0,
-          items: const [
-            BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
-            BottomNavigationBarItem(
-                label: "Favorites", icon: Icon(Icons.favorite)),
-            BottomNavigationBarItem(label: "Search", icon: Icon(Icons.search)),
-            BottomNavigationBarItem(label: "Map", icon: Icon(Icons.map)),
-            BottomNavigationBarItem(label: "Me", icon: Icon(Icons.person))
-          ],
-        ),
-      ),
+      home: AuthPage()
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/widgets/customCard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +11,15 @@ class PerfilPage extends StatefulWidget {
 }
 
 class _PerfilPageState extends State<PerfilPage> {
+
+
+  //Cerrar Sesion
+  void cerrarSesion() {
+
+    FirebaseAuth.instance.signOut();
+
+  }
+
   bool switchValue = true;
 
   @override
@@ -141,6 +151,17 @@ class _PerfilPageState extends State<PerfilPage> {
                     ),
                     trailing: Icon(Icons.arrow_forward_ios),
                   ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.warning_amber_outlined,
+                      color: Color(0xffc44b1b),
+                    ),
+                    title: Text(
+                      'Cerrar Sesión',
+                      style: TextStyle(fontSize: 18 * textScaleFactor),
+                    ),
+                    trailing: IconButton(onPressed: cerrarSesion, icon: Icon(Icons.logout)),
+                  ),
                 ],
                 hasSwitch: false,
                 switchValue: true,
@@ -155,7 +176,10 @@ class _PerfilPageState extends State<PerfilPage> {
 }
 
 class ProfileRow extends StatelessWidget {
-  const ProfileRow({super.key});
+
+  final user = FirebaseAuth.instance.currentUser!;
+
+  ProfileRow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +203,7 @@ class ProfileRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Nombre de usuario',
+              user.email!,
               style: TextStyle(
                 fontSize: 18 * textScaleFactor,
                 fontWeight: FontWeight.normal,

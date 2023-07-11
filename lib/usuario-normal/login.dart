@@ -1,256 +1,258 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/utils.dart';
+import 'package:myapp/services/auth_service.dart';
+import 'package:myapp/widgets/login_textfield.dart';
+import 'package:myapp/widgets/singIn_button.dart';
+import 'package:myapp/widgets/square_tile.dart';
 
-class Scene extends StatelessWidget {
-  const Scene({super.key});
+class Login extends StatefulWidget {
+
+  final Function()? onTap;
+
+  Login({
+    super.key,
+    required this.onTap
+  });
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+
+  //Editando Controladores de Texto
+  final emailController = TextEditingController();
+
+  final passwordController = TextEditingController();
+
+  //Iniciar sesión de usuario
+  void IniciarSesionUser() async {
+
+    //  Mostrar un circulo de carga
+
+    showDialog(context: this.context, builder: (context) {
+
+      return const Center(
+
+        child: CircularProgressIndicator(),
+
+      );
+
+    });
+
+    //IniciadoSesion
+
+    try{
+
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text, 
+        password: passwordController.text
+      );
+
+      Navigator.of(this.context, rootNavigator: true).pop();
+
+    } on FirebaseAuthException catch (e) {
+
+      Navigator.of(this.context, rootNavigator: true).pop();
+
+      showErrorMessage(e.code);
+
+    }
+ 
+  }
+
+  void showErrorMessage(String message){
+
+    showDialog(
+      context: this.context, builder: (context) {
+
+        return AlertDialog(
+
+          title: Text(
+            message,
+            style: const TextStyle(color: Colors.black),
+          ),
+
+        );
+
+      }
+    );
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 360;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
-    return SizedBox(
-      width: double.infinity,
-      child: Container(
-        // loginYyJ (11:2)
-        padding: EdgeInsets.fromLTRB(30*fem, 182*fem, 32*fem, 229*fem),
-        width: double.infinity,
-        height: 800*fem,
-        decoration: const BoxDecoration (
-          color: Color(0xffffffff),
-        ),
-        child: SizedBox(
-          // loginformbwa (14:6)
-          width: double.infinity,
-          height: double.infinity,
-          child: Stack(
-            children: [
-              Positioned(
-                // autogroup6ftgFmE (2y2P3d8jtepwz6DC3B6Ftg)
-                left: 1*fem,
-                top: 88*fem,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(10*fem, 14*fem, 10*fem, 13*fem),
-                  width: 297*fem,
-                  height: 42*fem,
-                  decoration: BoxDecoration (
-                    color: const Color(0xfff4f4f4),
-                    borderRadius: BorderRadius.circular(5*fem),
-                  ),
-                  child: Text(
-                    'correo@ejemplo.com',
-                    style: SafeGoogleFont (
-                      'Roboto',
-                      fontSize: 12*ffem,
-                      fontWeight: FontWeight.w400,
-                      height: 1.1725*ffem/fem,
-                      color: const Color(0xffb4b4b4),
-                    ),
+    return Scaffold(
+      backgroundColor: Colors.grey[300],
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+          
+                //Logo
+          
+                const Image(
+                  image:
+                      AssetImage('assets/usuario-normal/images/logotake1-1.png'),
+                  width: 200,
+                  height: 80,
+                ),
+          
+                Text(
+                  'Bievenido de nuevo, ¡te hemos extrañado!',
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 16,
                   ),
                 ),
-              ),
-              Positioned(
-                // autogroupxbhexJG (2y2P97yacwS19Lbiy5xbhe)
-                left: 1*fem,
-                top: 169*fem,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(9*fem, 14*fem, 9*fem, 13*fem),
-                  width: 297*fem,
-                  height: 42*fem,
-                  decoration: BoxDecoration (
-                    color: const Color(0xfff4f4f4),
-                    borderRadius: BorderRadius.circular(5*fem),
-                  ),
-                  child: Text(
-                    '*********************',
-                    style: SafeGoogleFont (
-                      'Roboto',
-                      fontSize: 12*ffem,
-                      fontWeight: FontWeight.w400,
-                      height: 1.1725*ffem/fem,
-                      color: const Color(0xffcfcbd2),
-                    ),
-                  ),
+          
+                const SizedBox(height: 25),
+          
+                //Correo Electronico TextField
+          
+                LoginTextField(
+                  controller: emailController,
+                  hintText: 'Email',
+                  obscureText: false,
                 ),
-              ),
-              Positioned(
-                // autogroup1mrvgNg (2y2PDTBhNoRVzokgyP1MRv)
-                left: 0*fem,
-                top: 250*fem,
-                child: Container(
-                  width: 297*fem,
-                  height: 42*fem,
-                  decoration: BoxDecoration (
-                    color: const Color(0xff944c24),
-                    borderRadius: BorderRadius.circular(25*fem),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Ingresar',
-                      style: SafeGoogleFont (
-                        'Roboto',
-                        fontSize: 15*ffem,
-                        fontWeight: FontWeight.w700,
-                        height: 1.1725*ffem/fem,
-                        color: const Color(0xffffffff),
-                      ),
-                    ),
-                  ),
+          
+                const SizedBox(height: 10),
+          
+                //Contraseña TextField
+          
+                LoginTextField(
+                  controller: passwordController,
+                  hintText: 'Password',
+                  obscureText: true,
                 ),
-              ),
-              Positioned(
-                // autogroupautsq96 (2y2PHx4ChaeN36oJpmAuTS)
-                left: 1*fem,
-                top: 312*fem,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(20.77*fem, 9.56*fem, 79*fem, 10.56*fem),
-                  width: 297*fem,
-                  height: 42*fem,
-                  decoration: BoxDecoration (
-                    border: Border.all(color: const Color(0xfff3d8a6)),
-                    color: const Color(0xffffffff),
-                    borderRadius: BorderRadius.circular(25*fem),
-                  ),
+          
+                //Olvidaste tu Contraseña
+          
+                const SizedBox(height: 10),
+          
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                        // google1DfS (56:222)
-                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 38.77*fem, 0*fem),
-                        width: 21.46*fem,
-                        height: 21.88*fem,
-                        child: Image.asset(
-                          'assets/usuario-normal/images/google-1.png',
-                          width: 21.46*fem,
-                          height: 21.88*fem,
-                        ),
-                      ),
-                      Container(
-                        // ingresarcongoogleUbN (14:33)
-                        margin: EdgeInsets.fromLTRB(0*fem, 1*fem, 0*fem, 0*fem),
-                        child: Text(
-                          'Ingresar con Google',
-                          style: SafeGoogleFont (
-                            'Roboto',
-                            fontSize: 15*ffem,
-                            fontWeight: FontWeight.w700,
-                            height: 1.1725*ffem/fem,
-                            color: const Color(0xfff3d8a6),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                // emailghS (14:10)
-                left: 2*fem,
-                top: 69*fem,
-                child: Align(
-                  child: SizedBox(
-                    width: 99*fem,
-                    height: 15*fem,
-                    child: Text(
-                      'Correo electrónico',
-                      style: SafeGoogleFont (
-                        'Roboto',
-                        fontSize: 12*ffem,
-                        fontWeight: FontWeight.w400,
-                        height: 1.1725*ffem/fem,
-                        color: const Color(0xff363636),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                // olvidsucontraseauq6 (56:194)
-                left: 86*fem,
-                top: 374*fem,
-                child: Align(
-                  child: SizedBox(
-                    width: 125*fem,
-                    height: 15*fem,
-                    child: Text(
-                      '¿Olvidó su contraseña?',
-                      style: SafeGoogleFont (
-                        'Roboto',
-                        fontSize: 12*ffem,
-                        fontWeight: FontWeight.w500,
-                        height: 1.1725*ffem/fem,
-                        decoration: TextDecoration.underline,
-                        color: const Color(0xff944c24),
-                        decorationColor: const Color(0xff944c24),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                // autogrouphxhnGJG (2y2Nvnznd2NyLEhSLZHXhn)
-                left: 63*fem,
-                top: 0*fem,
-                child: SizedBox(
-                  width: 172*fem,
-                  height: 15*fem,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        // iniciarsesin7pg (56:183)
-                        margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 37*fem, 0*fem),
-                        child: Text(
-                          'Iniciar Sesión',
-                          style: SafeGoogleFont (
-                            'Roboto',
-                            fontSize: 12*ffem,
-                            fontWeight: FontWeight.w500,
-                            height: 1.1725*ffem/fem,
-                            color: const Color(0xff944c24),
-                          ),
-                        ),
-                      ),
                       Text(
-                        // registrarseYQC (56:184)
-                        'Registrarse',
-                        style: SafeGoogleFont (
-                          'Roboto',
-                          fontSize: 12*ffem,
-                          fontWeight: FontWeight.w500,
-                          height: 1.1725*ffem/fem,
-                          color: const Color(0xff9f9f9f),
-                        ),
-                      ),
+                        '¿Olvidaste tu contraseña?',
+                        style: TextStyle(color: Colors.grey[600]),
+                      )
                     ],
                   ),
                 ),
-              ),
-              Positioned(
-                // contraseaqeC (14:29)
-                left: 1*fem,
-                top: 149*fem,
-                child: Align(
-                  child: SizedBox(
-                    width: 62*fem,
-                    height: 15*fem,
-                    child: Text(
-                      'Contraseña',
-                      style: SafeGoogleFont (
-                        'Roboto',
-                        fontSize: 12*ffem,
-                        fontWeight: FontWeight.w400,
-                        height: 1.1725*ffem/fem,
-                        color: const Color(0xff363636),
-                      ),
+          
+                const SizedBox(height: 25),
+              
+                //Boton de Inicio de Sesion
+          
+                SignInButton(
+                  
+                  text: "Iniciar Sesión",
+                  onTap: IniciarSesionUser,
+          
+                ),
+          
+                const SizedBox(height: 50), 
+          
+                //O puedes continuar con
+          
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                  
+                      children: [
+                  
+                        Expanded(
+                  
+                          child: Divider(
+                  
+                            thickness: 0.5,
+                            color: Colors.grey[400],
+                  
+                          ),
+                  
+                        ),
+                  
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            'O continua con ',
+                            style: TextStyle(color: Colors.grey[700]),
+                          ),
+                        ),
+                  
+                        Expanded(
+                  
+                          child: Divider(
+                  
+                            thickness: 0.5,
+                            color: Colors.grey[400],
+                  
+                          ),
+                  
+                        )
+                  
+                      ],
+                  
                     ),
                   ),
-                ),
-              ),
-            ],
+          
+                  //Inicio de Sesión con google
+          
+                  const SizedBox(height: 25), 
+          
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+          
+                      SquareTitle(
+                        imagePath: 'assets/usuario-normal/images/google.png',
+                        onTap: () => AuthService().signInWithGoogle(),
+                      )
+          
+                    ],
+          
+                  ),
+          
+                  const SizedBox(height: 25), 
+          
+                  //No estas registrado?
+          
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+          
+                      Text(
+                        '¿No, estas registrado?',
+                        style: TextStyle(color: Colors.grey[700]),
+                      ),
+                      const SizedBox(width: 4),
+                      GestureDetector(
+                        onTap: widget.onTap,
+                        child: const Text(
+                          'Registrate ahora',
+                          style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      ),
+          
+                    ],
+          
+                  )
+          
+              ],
+            ),
           ),
         ),
       ),
-          );
+    );
   }
 }
