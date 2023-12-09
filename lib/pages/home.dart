@@ -22,7 +22,13 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Item(imageUrl: '', title: '', isFavorite: true),
+        child: Item(
+          imageUrl: '',
+          title: '',
+          isFavorite: true,
+          width: 85,
+          height: 85,
+        ),
       ),
     );
   }

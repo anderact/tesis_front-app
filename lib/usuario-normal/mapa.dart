@@ -15,7 +15,6 @@ class MapaPage extends StatefulWidget {
 class _MapaPageState extends State<MapaPage> {
   // ignore: unused_field
   late GoogleMapController _mapController;
-  Map<String, Marker> _markers = {};
 
   @override
   Widget build(BuildContext context) {

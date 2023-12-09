@@ -4,8 +4,6 @@ import 'package:myapp/usuario-normal/favoritos.dart';
 import 'package:myapp/usuario-normal/home.dart';
 import 'package:myapp/usuario-normal/mapa.dart';
 import 'package:myapp/usuario-normal/perfil.dart';
-import 'package:myapp/usuario-normal/producto.dart';
-import 'package:myapp/widgets/item.dart';
 
 import '../widgets/appbar.dart';
 
@@ -17,7 +15,6 @@ class PrincipalPage extends StatefulWidget {
 }
 
 class PrincipalPageState extends State<PrincipalPage> {
-
   List<Widget> _pages = [
     const HomePage2(),
     const FavoritosPage(),
@@ -42,9 +39,6 @@ class PrincipalPageState extends State<PrincipalPage> {
 
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 360;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Scaffold(

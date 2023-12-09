@@ -4,11 +4,15 @@ class Item extends StatelessWidget {
   final String imageUrl;
   final String title;
   final bool isFavorite;
+  final double width;
+  final double height;
   const Item({
     super.key,
     required this.imageUrl,
     required this.title,
     required this.isFavorite,
+    required this.width,
+    required this.height,
   });
 
   @override
@@ -16,8 +20,8 @@ class Item extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 85,
-          height: 85,
+          width: width,
+          height: height,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(

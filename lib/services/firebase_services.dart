@@ -15,7 +15,6 @@ Future<List> getStores() async {
   });
 
   print(stores);
-
   return stores;
 }
 
@@ -31,7 +30,7 @@ Future<List> getProducts() async {
     products.add(product.data());
   });
 
-  // print(products);
+  print(products);
 
   return products;
 }
@@ -49,7 +48,8 @@ Future<List> getCategories() async {
     },
     {
       'categoria': "Congelados",
-      'url': 'https://www.deltafrio.com.br/img/gco-images/574-pt-br.jpg'
+      'url':
+          'https://www.clikisalud.net/wp-content/uploads/2016/07/comida-congelada.jpg'
     },
     {
       'categoria': "Quesos y Fiambres",
@@ -64,7 +64,7 @@ Future<List> getCategories() async {
     {
       'categoria': "Desayunos",
       'url':
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR75XjAF2zB1VEbeiyUWja947-yJ0LEphqVA&usqp=CAU'
+          'https://okdiario.com/img/2018/07/03/receta-de-desayuno-americano-1-655x368.jpg'
     },
     {
       'categoria': "Panadería y Pastelería",

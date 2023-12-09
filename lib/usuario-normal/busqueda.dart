@@ -6,7 +6,6 @@ import 'package:myapp/usuario-normal/resultado-de-bsqueda.dart';
 import 'package:myapp/widgets/carouselSlider.dart';
 
 import '../widgets/item.dart';
-import 'producto.dart';
 
 class BusquedaPage extends StatefulWidget {
   const BusquedaPage({super.key});
@@ -39,9 +38,12 @@ class _BusquedaPageState extends State<BusquedaPage> {
       allProducts.add(productName);
       itemProducts.add(
         Item(
-            imageUrl: product['img'],
-            title: product['marca'],
-            isFavorite: false),
+          imageUrl: product['img'],
+          title: product['marca'],
+          isFavorite: false,
+          width: 85,
+          height: 85,
+        ),
       );
     }
     setState(() {});

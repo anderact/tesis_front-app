@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/usuario-normal/producto.dart';
 //import 'package:myapp/usuario-normal/producto.dart';
 import 'package:myapp/usuario-normal/resultado-de-bsqueda.dart';
 import 'package:myapp/widgets/item.dart';
@@ -36,9 +37,12 @@ class _HomePage2State extends State<HomePage2> {
       allProducts.add(productName);
       itemProducts.add(
         Item(
-            imageUrl: product['img'],
-            title: product['marca'],
-            isFavorite: false),
+          imageUrl: product['img'],
+          title: product['title'],
+          isFavorite: false,
+          width: 85,
+          height: 85,
+        ),
       );
     }
     setState(() {});
@@ -198,13 +202,22 @@ class _HomePage2State extends State<HomePage2> {
                   padding: const EdgeInsets.symmetric(horizontal: 33.0),
                   child: Expanded(
                     child: Container(
-                      height: 150,
+                      height: 160,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.all(12),
                         itemCount: itemProducts.length,
                         itemBuilder: (context, index) {
-                          return itemProducts[index];
+                          return GestureDetector(
+                            child: itemProducts[index],
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Producto(item: itemProducts[index])));
+                            },
+                          );
                         },
                       ),
                     ),
@@ -233,13 +246,22 @@ class _HomePage2State extends State<HomePage2> {
                   padding: const EdgeInsets.symmetric(horizontal: 33.0),
                   child: Expanded(
                     child: Container(
-                      height: 150,
+                      height: 160,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.all(12),
                         itemCount: itemProducts.length,
                         itemBuilder: (context, index) {
-                          return itemProducts[index];
+                          return GestureDetector(
+                            child: itemProducts[index],
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Producto(item: itemProducts[index])));
+                            },
+                          );
                         },
                       ),
                     ),
@@ -268,13 +290,22 @@ class _HomePage2State extends State<HomePage2> {
                   padding: const EdgeInsets.symmetric(horizontal: 33.0),
                   child: Expanded(
                     child: Container(
-                      height: 150,
+                      height: 160,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         padding: const EdgeInsets.all(12),
                         itemCount: itemProducts.length,
                         itemBuilder: (context, index) {
-                          return itemProducts[index];
+                          return GestureDetector(
+                            child: itemProducts[index],
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Producto(item: itemProducts[index])));
+                            },
+                          );
                         },
                       ),
                     ),
