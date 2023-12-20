@@ -1,30 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/widgets/item.dart';
+import 'package:myapp/models/product.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    Product producto = Product(
+      marca: 'Nombre de la marca',
+      img: 'URL de la imagen',
+      precio: 19.99,
+      categoria: 'Categoría del producto', tiendas: {},
+      title: 'titulo del producto',
+      // ... otros valores requeridos por tu modelo Producto
+    );
+
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
       title: 'Material App',
-      home: Home(),
+      home: Home(
+        producto: producto,
+      ),
     );
   }
 }
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  final Product producto;
+  const Home({super.key, required this.producto});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Item(
-          imageUrl: '',
-          title: '',
+          producto: producto,
           isFavorite: true,
           width: 85,
           height: 85,

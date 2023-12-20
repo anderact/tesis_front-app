@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/product.dart';
 
 class Item extends StatelessWidget {
-  final String imageUrl;
-  final String title;
+  final Product producto;
   final bool isFavorite;
   final double width;
   final double height;
+  final double titleWidth;
+  final double titleFontSize;
   const Item({
     super.key,
-    required this.imageUrl,
-    required this.title,
+    required this.producto,
     required this.isFavorite,
     required this.width,
     required this.height,
+    this.titleWidth = 85.0,
+    this.titleFontSize = 14,
   });
 
   @override
@@ -25,7 +28,7 @@ class Item extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: NetworkImage(imageUrl),
+              image: NetworkImage(producto.img),
               fit: BoxFit.cover,
             ),
           ),
@@ -49,14 +52,14 @@ class Item extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Container(
-          width: 85,
+          width: titleWidth,
           child: Text(
-            title,
-            maxLines: 3,
-            overflow: TextOverflow.clip,
+            producto.title,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 14 * MediaQuery.of(context).textScaleFactor,
+              fontSize: titleFontSize * MediaQuery.of(context).textScaleFactor,
             ),
           ),
         )

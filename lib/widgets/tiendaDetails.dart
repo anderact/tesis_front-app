@@ -1,25 +1,33 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TiendaDetails extends StatelessWidget {
-  final String logoUrl;
+  final String price;
+  final String tiendaName;
+  final String link;
 
   const TiendaDetails({
-    required this.logoUrl,
+    required this.price,
+    required this.tiendaName,
+    required this.link,
   });
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor = Colors.transparent;
+
+    // Condicionales para asignar el color basado en el nombre de la tienda
+    if (tiendaName.toLowerCase() == 'plazavea') {
+      backgroundColor = Color.fromARGB(255, 241, 32, 32);
+    } else if (tiendaName.toLowerCase() == 'tottus') {
+      backgroundColor = Color.fromARGB(255, 53, 180, 28);
+    }
     return Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 241, 32, 32),
-              Color.fromARGB(5, 241, 32, 32),
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
+          color: backgroundColor,
           borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
         child: Padding(
@@ -33,13 +41,20 @@ class TiendaDetails extends StatelessWidget {
                     children: [
                       Text(
                         'Precio',
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          'S/.69.69',
-                          style: TextStyle(fontSize: 32),
+                          'S/. ${price}',
+                          style: TextStyle(
+                            fontSize: 32,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -49,7 +64,9 @@ class TiendaDetails extends StatelessWidget {
                     child: Column(
                       children: [
                         Image(
-                          image: NetworkImage(logoUrl),
+                          image: AssetImage(
+                            'assets/img/${tiendaName.toLowerCase()}.png',
+                          ),
                           width: 90,
                           height: 30,
                           fit: BoxFit.cover,
@@ -57,11 +74,19 @@ class TiendaDetails extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              if (await canLaunch(link)) {
+                                await launch(
+                                  link,
+                                );
+                              } else {
+                                throw 'No se pudo abrir $link';
+                              }
+                            },
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
                               child: Text(
-                                'Ubicación',
+                                'Ir a la tienda',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.white,
@@ -69,8 +94,8 @@ class TiendaDetails extends StatelessWidget {
                               ),
                             ),
                             style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Color(0xFFEF6A6A)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Color.fromARGB(69, 255, 255, 255)),
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30),

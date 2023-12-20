@@ -5,6 +5,7 @@ import 'package:myapp/usuario-normal/resultado-de-bsqueda.dart';
 import 'package:myapp/widgets/item.dart';
 
 import '../services/firebase_services.dart';
+import 'package:myapp/models/product.dart';
 
 class HomePage2 extends StatefulWidget {
   const HomePage2({super.key});
@@ -14,7 +15,7 @@ class HomePage2 extends StatefulWidget {
 }
 
 class _HomePage2State extends State<HomePage2> {
-  List<dynamic> allProducts = [];
+  List<Product> allProducts = [];
   List<Item> itemProducts = [];
   final controller = TextEditingController();
 
@@ -26,36 +27,31 @@ class _HomePage2State extends State<HomePage2> {
   }
 
   Future<void> fetchData() async {
-    //toda la data
-    dynamic productData = await getProducts();
-    //productos
-    dynamic products = productData[0]['json_without'];
+    List<Product> productList = await getProductos();
+    allProducts = productList;
 
-    for (var product in products) {
-      dynamic productName = product['title'];
-      print(productName);
-      allProducts.add(productName);
+    for (var product in allProducts) {
       itemProducts.add(
         Item(
-          imageUrl: product['img'],
-          title: product['title'],
+          producto: product,
           isFavorite: false,
           width: 85,
           height: 85,
         ),
       );
     }
+
     setState(() {});
   }
 
-  List<dynamic> getFilteredProducts() {
+  List<Product> getFilteredProducts() {
     String searchText = controller.text.toLowerCase().trim();
     if (searchText.isEmpty) {
       return [];
     }
 
     return allProducts.where((product) {
-      String productTitle = product.toString().toLowerCase();
+      String productTitle = product.title.toLowerCase();
       return productTitle.contains(searchText);
     }).toList();
   }
@@ -73,7 +69,7 @@ class _HomePage2State extends State<HomePage2> {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> filteredProducts = getFilteredProducts();
+    List<Product> filteredProducts = getFilteredProducts();
 
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -164,7 +160,7 @@ class _HomePage2State extends State<HomePage2> {
                           ? 3
                           : filteredProducts.length,
                       itemBuilder: (context, index) {
-                        String productTitle = filteredProducts[index];
+                        String productTitle = filteredProducts[index].title;
 
                         return GestureDetector(
                           onTap: () {
@@ -214,8 +210,9 @@ class _HomePage2State extends State<HomePage2> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          Producto(item: itemProducts[index])));
+                                      builder: (context) => Producto(
+                                          product:
+                                              itemProducts[index].producto)));
                             },
                           );
                         },
@@ -258,8 +255,9 @@ class _HomePage2State extends State<HomePage2> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          Producto(item: itemProducts[index])));
+                                      builder: (context) => Producto(
+                                          product:
+                                              itemProducts[index].producto)));
                             },
                           );
                         },
@@ -302,8 +300,9 @@ class _HomePage2State extends State<HomePage2> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          Producto(item: itemProducts[index])));
+                                      builder: (context) => Producto(
+                                          product:
+                                              itemProducts[index].producto)));
                             },
                           );
                         },

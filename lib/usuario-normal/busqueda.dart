@@ -1,10 +1,10 @@
 //import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:myapp/models/product.dart';
 import 'package:myapp/services/firebase_services.dart';
 import 'package:myapp/usuario-normal/resultado-de-bsqueda.dart';
 import 'package:myapp/widgets/carouselSlider.dart';
-
 import '../widgets/item.dart';
 
 class BusquedaPage extends StatefulWidget {
@@ -17,6 +17,7 @@ class BusquedaPage extends StatefulWidget {
 class _BusquedaPageState extends State<BusquedaPage> {
   List<dynamic> allProducts = [];
   List<Item> itemProducts = [];
+  List<Product> productItems = [];
   final controller = TextEditingController();
 
   @override
@@ -27,36 +28,18 @@ class _BusquedaPageState extends State<BusquedaPage> {
   }
 
   Future<void> fetchData() async {
-    //toda la data
-    dynamic productData = await getProducts();
-    //productos
-    dynamic products = productData[0]['json_without'];
-
-    for (var product in products) {
-      dynamic productName = product['title'];
-      print(productName);
-      allProducts.add(productName);
-      itemProducts.add(
-        Item(
-          imageUrl: product['img'],
-          title: product['marca'],
-          isFavorite: false,
-          width: 85,
-          height: 85,
-        ),
-      );
-    }
+    productItems = await getProductos();
     setState(() {});
   }
 
-  List<dynamic> getFilteredProducts() {
+  List<Product> getFilteredProducts() {
     String searchText = controller.text.toLowerCase().trim();
     if (searchText.isEmpty) {
       return [];
     }
 
-    return allProducts.where((product) {
-      String productTitle = product.toString().toLowerCase();
+    return productItems.where((product) {
+      String productTitle = product.title.toLowerCase();
       return productTitle.contains(searchText);
     }).toList();
   }
@@ -74,7 +57,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> filteredProducts = getFilteredProducts();
+    List<Product> filteredProducts = getFilteredProducts();
 
     double baseWidth = 360;
     double fem = MediaQuery.of(context).size.width / baseWidth;
@@ -82,7 +65,6 @@ class _BusquedaPageState extends State<BusquedaPage> {
     return SizedBox(
       width: double.infinity,
       child: Container(
-        // busquedaMfr (28:59)
         padding: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem, 0 * fem),
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -182,7 +164,7 @@ class _BusquedaPageState extends State<BusquedaPage> {
                         ? 3
                         : filteredProducts.length,
                     itemBuilder: (context, index) {
-                      String productTitle = filteredProducts[index];
+                      String productTitle = filteredProducts[index].title;
 
                       return GestureDetector(
                         onTap: () {
@@ -197,53 +179,9 @@ class _BusquedaPageState extends State<BusquedaPage> {
                 ),
               if (filteredProducts.isEmpty && controller.text.isNotEmpty)
                 Text('No se encontraron resultados.'),
-              // label - Top Categorias
-              Padding(
-                padding: const EdgeInsets.fromLTRB(33, 20, 33, 20),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Builder(builder: (context) {
-                    double textScaleFactor =
-                        MediaQuery.of(context).textScaleFactor;
-                    return Text(
-                      "Top Categorías",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18 * textScaleFactor,
-                      ),
-                    );
-                  }),
-                ),
-              ),
-              // item - Categoria
-              // item - Categoria
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xffffffff),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 33.0),
-                      child: SizedBox(
-                        height: 135,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: itemProducts.length,
-                          itemBuilder: (context, index) {
-                            return itemProducts[index];
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
               // label - Catálogo Completo
               Padding(
-                padding: const EdgeInsets.fromLTRB(33, 0, 33, 20),
+                padding: const EdgeInsets.fromLTRB(33, 33, 33, 20),
                 child: SizedBox(
                   width: double.infinity,
                   child: Builder(builder: (context) {

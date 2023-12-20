@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:myapp/models/product.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -33,6 +34,35 @@ Future<List> getProducts() async {
   print(products);
 
   return products;
+}
+
+Future<List<Product>> getProductos() async {
+  List<Product> productos = [];
+
+  CollectionReference collectionReference =
+      db.collection("allProductsWihoutCategory");
+
+  QuerySnapshot queryProductos = await collectionReference.get();
+
+  queryProductos.docs.forEach((producto) {
+    Map<String, dynamic> productData = producto.data() as Map<String, dynamic>;
+
+    // Accede a la lista "json_without" dentro del documento
+    List<dynamic> jsonWithout = productData['json_without'];
+
+    // Itera sobre cada elemento de la lista para crear los objetos Product
+    jsonWithout.forEach((product) {
+      Product parsedProducto = Product.fromJson(product);
+      productos.add(parsedProducto);
+    });
+  });
+
+  // print("queryProductos");
+  // print(queryProductos.size);
+
+  // print("Productos");
+  // print(productos);
+  return productos;
 }
 
 Future<List> getCategories() async {

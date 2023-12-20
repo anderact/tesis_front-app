@@ -61,6 +61,9 @@ dependencies:
   firebase_auth: ^4.6.3
   google_sign_in: ^6.1.4
 
+  # url_launcher
+  url_launcher: ^6.2.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -327,6 +330,8 @@ flutter:
     - assets/usuario-normal/images/rectangle-5889-oCQ.png
     - assets/usuario-normal/images/battery-mDn.png
     - assets/img/profile_default.png
+    - assets/img/plazavea.png
+    - assets/img/tottus.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

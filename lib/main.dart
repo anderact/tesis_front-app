@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -47,19 +49,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   int currentIndex = 0;
   void onTap(int index) {
     setState(() {
       currentIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SmartShop',
-      home: AuthPage()
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'SmartShop',
+        home: AuthPage());
   }
 }

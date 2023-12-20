@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/usuario-normal/producto.dart';
+import 'package:myapp/models/product.dart';
 import 'package:myapp/widgets/item.dart';
-
 import '../services/firebase_services.dart';
 
 class FavoritosPage extends StatefulWidget {
@@ -14,7 +14,7 @@ class FavoritosPage extends StatefulWidget {
 class _FavoritosPageState extends State<FavoritosPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  List<Item> itemProducts = [];
+  List<Product> productItems = [];
 
   @override
   void initState() {
@@ -23,35 +23,23 @@ class _FavoritosPageState extends State<FavoritosPage> {
   }
 
   Future<void> fetchData() async {
-    //toda la data
-    dynamic productData = await getProducts();
-    //productos
-    dynamic products = productData[0]['json_without'];
-    print(products);
+    // Obtener datos de productos
+    List<Product> products = await getProductos();
 
-    for (var product in products) {
-      itemProducts.add(
-        Item(
-          imageUrl: product['img'],
-          title: product['title'],
-          isFavorite: true,
-          width: 85,
-          height: 85,
-        ),
-      );
-    }
-    setState(() {});
+    setState(() {
+      productItems = products;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final int _totalPages = (itemProducts.length / 9).ceil();
+    final int _totalPages = (productItems.length / 9).ceil();
 
-    final List<List<Item>> pages = [];
+    final List<List<Product>> pages = [];
 
-    for (int i = 0; i < itemProducts.length; i += 9) {
-      final List<Item> pageItems = itemProducts.sublist(
-          i, i + 9 < itemProducts.length ? i + 9 : itemProducts.length);
+    for (int i = 0; i < productItems.length; i += 9) {
+      final List<Product> pageItems = productItems.sublist(
+          i, i + 9 < productItems.length ? i + 9 : productItems.length);
       pages.add(pageItems);
     }
 
@@ -93,17 +81,16 @@ class _FavoritosPageState extends State<FavoritosPage> {
                   children: pageItems.map((item) {
                     return GestureDetector(
                       child: Item(
-                        imageUrl: item.imageUrl,
-                        title: item.title,
-                        isFavorite: item.isFavorite,
-                        width: item.width,
-                        height: item.height,
+                        producto: item,
+                        isFavorite: true,
+                        width: 85,
+                        height: 85,
                       ),
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Producto(item: item),
+                            builder: (context) => Producto(product: item),
                           ),
                         );
                       },

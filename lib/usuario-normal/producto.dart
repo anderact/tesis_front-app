@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/widgets/item.dart';
 import 'package:myapp/widgets/tiendaDetails.dart';
-// import 'package:myapp/utils.dart';
+import 'package:myapp/models/product.dart';
 
 class Producto extends StatelessWidget {
-  final Item item;
+  final Product product;
+
   const Producto({
-    super.key,
-    required this.item,
-  });
+    Key? key,
+    required this.product,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +26,21 @@ class Producto extends StatelessWidget {
                     children: [
                       // Nombre del producto
                       Text(
-                        item.title,
+                        product.title.split(' ').first,
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                         ),
                       ),
-                      // Precio del producto
-                      // Text(
-                      //   'S/. ${item.title}',
-                      //   style: TextStyle(
-                      //     fontSize: 24,
-                      //     fontWeight: FontWeight.w600,
-                      //   ),
-                      // )
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 6, 0, 0),
+                        child: Text(
+                          'S/. ${product.precio.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ],
@@ -45,19 +48,16 @@ class Producto extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
                 child: Item(
-                  // Imagen del producto
-                  imageUrl: item.imageUrl,
-                  // Nombre del producto
-                  title: item.title,
-                  // Marcar si es favorito o no
+                  producto: product,
                   isFavorite: false,
-                  // Dimensiones del producto
                   width: 180,
                   height: 180,
+                  titleWidth: 360,
+                  titleFontSize: 21,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                padding: const EdgeInsets.fromLTRB(0, 48, 0, 8),
                 child: Row(
                   children: [
                     Text(
@@ -72,9 +72,25 @@ class Producto extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                child: TiendaDetails(
-                  logoUrl:
-                      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Plaza_Vea_nuevo_logo.svg/2560px-Plaza_Vea_nuevo_logo.svg.png',
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
+                      child: TiendaDetails(
+                        price: '${product.precio.toStringAsFixed(2)}',
+                        tiendaName: 'plazavea',
+                        link: product.tiendas['plazavea']?.first.link ?? '',
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 16),
+                      child: TiendaDetails(
+                        price: '${product.precio.toStringAsFixed(2)}',
+                        tiendaName: 'tottus',
+                        link: product.tiendas['tottus']?.first.link ?? '',
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
