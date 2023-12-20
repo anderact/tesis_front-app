@@ -83,8 +83,9 @@ class _FavoritosPageState extends State<FavoritosPage> {
                       child: Item(
                         producto: item,
                         isFavorite: true,
-                        width: 85,
-                        height: 85,
+                        width: 80,
+                        height: 80,
+                        titleFontSize: 12.0,
                       ),
                       onTap: () {
                         Navigator.push(

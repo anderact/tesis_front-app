@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/product.dart';
+// import 'package:myapp/usuario-normal/producto.dart';
 import 'package:myapp/widgets/appbar.dart';
 //import 'package:myapp/widgets/item.dart';
 
@@ -19,8 +21,8 @@ class _ResultadoBusquedaState extends State<ResultadoBusqueda> {
   int _totalPages = 1;
   int cardsPerPage = 6;
   List<CardDetailProduct> allProducts = []; //cards
-  List productsItem = []; //ignorar
-  Map productsMap = {}; //ignorar
+  List<Product> productsItem = []; //ignorar
+  Map<CardDetailProduct, Product> productsMap = {}; //ignorar
 
   @override
   void initState() {
@@ -30,37 +32,30 @@ class _ResultadoBusquedaState extends State<ResultadoBusqueda> {
   }
 
   Future<void> fetchData() async {
-    //toda la data
-    dynamic productData = await getProducts();
-    //productos
-    dynamic products = productData[0]['json_without'];
+    // Obtener la data de productos
+    List<Product> products = await getProductos();
 
-    for (var product in products) {
-      String title = product['title'];
+    // Filtrar los productos por el título del producto
+    List<Product> filteredProducts = products
+        .where((product) => product.title
+            .toLowerCase()
+            .contains(widget.titleProductFilter.toLowerCase()))
+        .toList();
 
-      if (title
-          .toLowerCase()
-          .contains(widget.titleProductFilter.toLowerCase())) {
-        allProducts.add(
-          CardDetailProduct(
-            image: product['img'],
-            brand: product['marca'],
-            description: product['title'],
-            price: 'S/. ' + product['precio'].toStringAsFixed(2),
-          ),
-        );
-        productsItem.add(product);
-      }
+    // Agregar productos a la lista de CardDetailProduct
+    for (var product in filteredProducts) {
+      allProducts.add(
+        CardDetailProduct(product: product),
+      );
+      productsItem.add(product);
     }
 
+    // Mapear los productos con sus respectivos widgets CardDetailProduct
     productsMap = Map.fromIterables(allProducts, productsItem);
 
     setState(() {
       _totalPages = (allProducts.length / cardsPerPage).ceil();
     });
-
-    print(_totalPages);
-    print(productsMap);
   }
 
   @override
@@ -105,7 +100,9 @@ class _ResultadoBusquedaState extends State<ResultadoBusqueda> {
                       childAspectRatio: 0.7,
                     ),
                     itemBuilder: (context, index) {
-                      return allProducts[index];
+                      return CardDetailProduct(
+                        product: allProducts[index].product,
+                      );
                     },
                   ),
                 ),

@@ -142,13 +142,6 @@ class _HomePage2State extends State<HomePage2> {
                           );
                         }),
                       ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.qr_code_scanner_sharp,
-                          color: Colors.black54,
-                        ),
-                        onPressed: () {},
-                      ),
                     ],
                   ),
                 ),
